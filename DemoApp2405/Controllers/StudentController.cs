@@ -21,6 +21,15 @@ namespace DemoApp2405.Controllers
             _context = context;
         }
 
+   
+
+        public async Task<JsonResult> loaddataAsync()
+        {
+            var data = await _context.Students.ToListAsync();
+
+            return Json(new {data=data});
+        }
+
         // GET: Student
         public async Task<IActionResult> Index()
         {
