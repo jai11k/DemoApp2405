@@ -4,14 +4,26 @@
  
 <h2>Part 1 : Implement jQuery Datatable in ASP.NET MVC</h2>
 <div style="width:90%; margin:0 auto;">
+
+    <br />
+    <div>
+                                <a asp-action="AddOrEdit" class="btn btn-sm btn-success">
+                            <i class="fa-solid fa-plus"></i> New
+                        </a>
+    </div>
+
     <table id="myTable">
         <thead>
             <tr>
+                <th>Student Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Class</th>
                 <th>Subject</th>
                 <th>Marks</th>
+                <th>
+
+                </th>
             </tr>
         </thead>
     </table>
@@ -35,14 +47,53 @@
                     "datatype": "json"
                 },
                 "columns" : [
+                        { "data": "studentId", "autoWidth": true },
                         { "data": "firstName", "autoWidth": true },
                         { "data": "lastName", "autoWidth": true },
                         { "data": "class", "autoWidth": true },
                         { "data": "subject", "autoWidth": true },
-                        { "data": "marks", "autoWidth": true }
+                        { "data": "marks", "autoWidth": true },
+
+                                    {  
+                    data: null,  
+                    render: function(data, type, row) {  
+                        return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.studentId + "'); >Delete</a>";  
+                    }  
+                },
                         
                     ]
             });
         });
+        
+        
+
+        function DeleteData(StudentId) 
+        {
+            console.log('in method studend id = ', StudentId);
+
+    if (confirm("Are you sure you want to delete ...????????"))
+    {  
+        Delete(StudentId);  
+    } else {  
+        return false;  
+    }  
+}  
+
+function Delete(StudentId) {  
+    var url = '@Url.Content("~/")' + "Student/Delete";  
+  
+    console.log('url=',url);
+  
+    console.log('in method studend id = ', StudentId);
+    $.post(url, { id: StudentId }, function(data) {  
+        if (data) {  
+            oTable = $('#myTable').DataTable();  
+            oTable.draw();  
+        } else {  
+            alert("Something Went Wrong!");  
+        }  
+    });  
+}  
+
     </script>
 }

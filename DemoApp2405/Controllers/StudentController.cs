@@ -73,7 +73,7 @@ namespace DemoApp2405.Controllers
 
         // POST: Student/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var Student = await _context.Students.FindAsync(id);
